@@ -1,1 +1,22 @@
 OTHELLO PLAN
+
+Plan:
+1. Show how to play the game if the person playing does not know how(Show examples of a potential move)
+2. print the default board which is 8 by 8 using two for loops each going to 8
+3. Print that it is player 1s turn then ask them where they want to place their piece.
+4. How to input the coordinates will be explained at the beginning
+5. there will be a method that checks wether the coordinates were typed in correctly otherwise it will ask again (error check)
+6. There will have to many checks to determine what the board will look like after the piece that was placed takes effect.
+The checks include:
+-if the piece is beside at least one other of the opponents pieces
+-if so it will check if there are more pieces in that linear direction or if there is a piece that belongs to the player 1
+if that is true then all the pieces of the opponent that are linearly between that of player 1 will be turned into player 1s
+-This check will happen by adding or subtracting 1 of the 2d array and checking those positions
+-there will have to be an exception for any pieces in the corrners or on the sides(probably get seperate methods or if statements)
+
+-Then player 2 will have a turn and so on
+-once the limit of pieces is up, whoever has the most pieces wins
+
+Goal:
+get all the functionality of the game working so that all the moves work properly
+have at least some error checking for common errors (all of the error checking is a lot of work)
