@@ -1,6 +1,7 @@
 class Othello
 {
-  public static int in1, in2;
+  public static char turn, turnOpp;
+  public static int input1, input2;
   public static char[][] board = new char[8][8];
   public static void main (String [] args) //calls all needed methods
   {
@@ -11,9 +12,8 @@ class Othello
         board[k][h] = ' ';
       }
     }  
-    boolean innercheck = false;
+    int innerCheck = 0;
     int endCondition = 0;
-    int input1, input2;
     String in;
     System.out.println("Do you know how to play Othello?");
     System.out.println("type n to display instructions");
@@ -28,90 +28,119 @@ class Othello
     System.out.println("Let's Start");
     System.out.println("Player 1 you are the 'o's");
     System.out.println("Player 2 you are the 'x's");
-    printBoard();
+    
+    
+    System.out.println("type in the row then the column");
     do
     {
       System.out.println("Player 1 it is your turn");
-      System.out.println("type in the row then the column");
-
-      do
-      { 
-        input1 = In.getInt();
-        input2 = In.getInt();
-        //if (check(input1, input2) == true)
-        //{
-          player1(input1 , input2);
-          printBoard();
-          innercheck = true;
-        //}
-      }
-      while (innercheck == false);
+      
+      turn = 'o';
+      turnOpp = 'x';
+      player1();
       
       endCondition++;
       
       System.out.println("Player 2 it is your turn");
-      do
-      {
-        input1 = In.getInt();
-        input2 = In.getInt();
-        {
-          player2(input1, input2);
-          printBoard();
-        }
-      }
-      while (check(input1, input2) == true);
+
+      turn = 'o';
+      turnOpp = 'o';
+      player2();
+      
+      printBoard();
       
       endCondition++;
     }
-    while (endCondition != 40);
+    while (endCondition != 20);
   }
   
-  public static boolean check(int in1, int in2)
-  {
-    //checks the input for invalid entries
-    boolean check = false;
-    check = true;
-    return check;
-  }
-  public static void player1(int in1, int in2)
+  public static void player1()
   {
     boolean tryAgain = false;
     //for when player 1 plays (the 'o's)
-    do
+      do
       {
-        if (board[in1][in2] == ' ')
+        tryAgain = false;
+        printBoard();
+        input1 = In.getInt();
+        input2 = In.getInt();
+        if (check() == false)
         {
-          board[in1][in2] = 'o';
+          tryAgain = true;
         }
         else
         {
-          System.out.println("You cannot play on other pieces.");
-            System.out.println("Try again:");
-            tryAgain = true;
+          board[input1][input2] = 'o';
+          
+          //replace All this with a for loop
+          //
+          //IMPORTANT
+          //
+          if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'o')
+          {
+            board[input1 + 1][input2] = 'o';
+          }
+          else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'o')
+          {
+            board[input1 + 1][input2] = 'o';
+            board[input1 + 2][input2] = 'o';
+          }
+          else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'o')
+          {
+            board[input1 + 1][input2] = 'o';
+            board[input1 + 2][input2] = 'o';
+            board[input1 + 3][input2] = 'o';
+          }
+          else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'o')
+          {
+            board[input1 + 1][input2] = 'o';
+            board[input1 + 2][input2] = 'o';
+            board[input1 + 3][input2] = 'o';
+            board[input1 + 4][input2] = 'o';
+          }
+          else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'x' && board[input1 + 6][input2] == 'o')
+          {
+            board[input1 + 1][input2] = 'o';
+            board[input1 + 2][input2] = 'o';
+            board[input1 + 3][input2] = 'o';
+            board[input1 + 4][input2] = 'o';
+            board[input1 + 5][input2] = 'o';
+          }
+          else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'x' && board[input1 + 6][input2] == 'x' && board[input1 + 7][input2] == 'o')
+          {
+            board[input1 + 1][input2] = 'o';
+            board[input1 + 2][input2] = 'o';
+            board[input1 + 3][input2] = 'o';
+            board[input1 + 4][input2] = 'o';
+            board[input1 + 5][input2] = 'o';
+            board[input1 + 6][input2] = 'o';
+          }
+          
         }
+      }
+      while (tryAgain); //while tryagain is true
+      
     }
-    while (tryAgain); //while tryagain is true
-    
-  }
-  public static void player2(int in1, int in2)
+  public static void player2()
   {
-   boolean tryAgain = true;
-    //all for when player 2 plays (the 'x's)
-
-    do
-    {
-        if (board[in1][in2] == ' ')
+       boolean tryAgain = false;
+    //for when player 1 plays (the 'o's)
+      do
+      {
+        tryAgain = false;
+        printBoard();
+        input1 = In.getInt();
+        input2 = In.getInt();
+        if (check() == false)
         {
-          board[in1][in2] = 'x';
+          tryAgain = true;
         }
         else
         {
-          System.out.println("You cannot play on other pieces.");
-            System.out.println("Try again:");
-            tryAgain = false;
+          board[input1][input2] = 'x';
         }
-    }
-    while (tryAgain); //while tryagain is true
+      }
+      while (tryAgain); //while tryagain is true
   }
   public static void printBoard()
   {
@@ -123,7 +152,7 @@ class Othello
     System.out.print("   ");
     for (int j = 0; j < 8; j ++)
     {
-      System.out.print(j + "��");
+      System.out.print(j + "  ");
     }
     System.out.println("");
     for(int r = 0; r < 8; r++)
@@ -165,7 +194,23 @@ public static void rules()
     System.out.println("6 [ ][ ][ ][|][ ][ ][ ][ ] ");
     System.out.println("7 [ ][ ][ ][|][ ][ ][ ][ ] ");
   }
-
+ public static boolean check()
+  {
+    //checks the input for invalid entries
+    boolean check = false;
+    if (board[input1][input2] == ' ')
+    {
+      check = true;
+    }
+    else
+    {
+       check = false;
+      System.out.println("You cannot play on other pieces.");
+      System.out.println("Try again:");
+    }
+    
+    return check;
+  }
 
 
 
