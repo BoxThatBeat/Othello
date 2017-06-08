@@ -5,6 +5,7 @@ class Othello
   public static char[][] board = new char[8][8];
   public static void main (String [] args) //calls all needed methods
   {
+    
     for (int k = 0; k < 8; k++)
     { 
       for (int h = 0; h < 8; h++)
@@ -12,6 +13,11 @@ class Othello
         board[k][h] = ' ';
       }
     }  
+    board[3][3] = 'x'; //sets the default piece positions
+    board[4][4] = 'x';
+    board[3][4] = 'o';
+    board[4][3] = 'o';
+    
     int innerCheck = 0;
     int endCondition = 0;
     String in;
@@ -56,98 +62,466 @@ class Othello
   
   public static void player1()
   {
-    boolean tryAgain = false;
+    boolean corner = false;
+    int tryAgain = 0;
     //for when player 1 plays (the 'o's)
       do
       {
-        tryAgain = false;
+        tryAgain = 0;
         printBoard();
         input1 = In.getInt();
         input2 = In.getInt();
         if (check() == false)
         {
-          tryAgain = true;
+          System.out.println("tryagain = true");
+          tryAgain = tryAgain + 4;
         }
         else
         {
-          board[input1][input2] = 'o';
-          
-          //replace All this with a for loop
-          //
-          //IMPORTANT
-          //
-          if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'o')
-          {
-            board[input1 + 1][input2] = 'o';
-          }
-          else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'o')
-          {
-            board[input1 + 1][input2] = 'o';
-            board[input1 + 2][input2] = 'o';
-          }
-          else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'o')
-          {
-            board[input1 + 1][input2] = 'o';
-            board[input1 + 2][input2] = 'o';
-            board[input1 + 3][input2] = 'o';
-          }
-          else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'o')
-          {
-            board[input1 + 1][input2] = 'o';
-            board[input1 + 2][input2] = 'o';
-            board[input1 + 3][input2] = 'o';
-            board[input1 + 4][input2] = 'o';
-          }
-          else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'x' && board[input1 + 6][input2] == 'o')
-          {
-            board[input1 + 1][input2] = 'o';
-            board[input1 + 2][input2] = 'o';
-            board[input1 + 3][input2] = 'o';
-            board[input1 + 4][input2] = 'o';
-            board[input1 + 5][input2] = 'o';
-          }
-          else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'x' && board[input1 + 6][input2] == 'x' && board[input1 + 7][input2] == 'o')
-          {
-            board[input1 + 1][input2] = 'o';
-            board[input1 + 2][input2] = 'o';
-            board[input1 + 3][input2] = 'o';
-            board[input1 + 4][input2] = 'o';
-            board[input1 + 5][input2] = 'o';
-            board[input1 + 6][input2] = 'o';
-          }
-          
+          //For downwards change
+            if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 + 1][input2] = 'o';
+            }
+            else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 + 1][input2] = 'o';
+              board[input1 + 2][input2] = 'o';
+            }
+            else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 + 1][input2] = 'o';
+              board[input1 + 2][input2] = 'o';
+              board[input1 + 3][input2] = 'o';
+            }
+            else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 + 1][input2] = 'o';
+              board[input1 + 2][input2] = 'o';
+              board[input1 + 3][input2] = 'o';
+              board[input1 + 4][input2] = 'o';
+            }
+            else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'x' && board[input1 + 6][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 + 1][input2] = 'o';
+              board[input1 + 2][input2] = 'o';
+              board[input1 + 3][input2] = 'o';
+              board[input1 + 4][input2] = 'o';
+              board[input1 + 5][input2] = 'o';
+            }
+            else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'x' && board[input1 + 6][input2] == 'x' && board[input1 + 7][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 + 1][input2] = 'o';
+              board[input1 + 2][input2] = 'o';
+              board[input1 + 3][input2] = 'o';
+              board[input1 + 4][input2] = 'o';
+              board[input1 + 5][input2] = 'o';
+              board[input1 + 6][input2] = 'o';
+            }
+            else
+            {
+              System.out.println("did not work");
+              tryAgain++;
+            }
+            
+            //For upwards change
+            if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+            }
+            else if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'x' && board[input1 - 3][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+            }
+            else if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'x' && board[input1 - 3][input2] == 'x' && board[input1 - 4][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+              board[input1 - 3][input2] = 'o';
+            }
+            else if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'x' && board[input1 - 3][input2] == 'x' && board[input1 - 4][input2] == 'x' && board[input1 - 5][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+              board[input1 - 3][input2] = 'o';
+              board[input1 - 4][input2] = 'o';
+            }
+            else if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'x' && board[input1 - 3][input2] == 'x' && board[input1 - 4][input2] == 'x' && board[input1 - 5][input2] == 'x' && board[input1 - 6][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+              board[input1 - 3][input2] = 'o';
+              board[input1 - 4][input2] = 'o';
+              board[input1 - 5][input2] = 'o';
+            }
+            else if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'x' && board[input1 - 3][input2] == 'x' && board[input1 - 4][input2] == 'x' && board[input1 - 5][input2] == 'x' && board[input1 - 6][input2] == 'x' && board[input1 - 7][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+              board[input1 - 3][input2] = 'o';
+              board[input1 - 4][input2] = 'o';
+              board[input1 - 5][input2] = 'o';
+              board[input1 - 6][input2] = 'o';
+            }
+            else
+            {
+              System.out.println("did not work2");
+              tryAgain++;
+            }
+            
+            //for left change
+            if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 - 1] = 'o';
+            }
+            else if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'x' && board[input1][input2 - 3] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 - 1] = 'o';
+              board[input1][input2 - 2] = 'o';
+            }
+            else if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'x' && board[input1][input2 - 3] == 'x' && board[input1][input2 - 4] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 - 1] = 'o';
+              board[input1][input2 - 2] = 'o';
+              board[input1][input2 - 3] = 'o';
+            }
+            else if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'x' && board[input1][input2 - 3] == 'x' && board[input1][input2 - 4] == 'x' && board[input1][input2 - 5] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+              board[input1 - 3][input2] = 'o';
+              board[input1 - 4][input2] = 'o';
+            }
+            else if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'x' && board[input1][input2 - 3] == 'x' && board[input1][input2 - 4] == 'x' && board[input1][input2 - 5] == 'x' && board[input1][input2 - 6] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 - 1] = 'o';
+              board[input1][input2 - 2] = 'o';
+              board[input1][input2 - 3] = 'o';
+              board[input1][input2 - 4] = 'o';
+              board[input1][input2 - 5] = 'o';
+            }
+            else if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'x' && board[input1][input2 - 3] == 'x' && board[input1][input2 - 4] == 'x' && board[input1][input2 - 5] == 'x' && board[input1][input2 - 6] == 'x' && board[input1][input2 - 7] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 - 1] = 'o';
+              board[input1][input2 - 2] = 'o';
+              board[input1][input2 - 3] = 'o';
+              board[input1][input2 - 4] = 'o';
+              board[input1][input2 - 5] = 'o';
+              board[input1][input2 - 6] = 'o';
+            }
+            else
+            {
+              System.out.println("did not work3");
+              tryAgain++;
+            }
+            
+            //For right change
+            if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 + 1] = 'o';
+            }
+            else if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'x' && board[input1][input2 + 3] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 + 1] = 'o';
+              board[input1][input2 + 2] = 'o';
+            }
+            else if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'x' && board[input1][input2 + 3] == 'x' && board[input1][input2 + 4] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 + 1] = 'o';
+              board[input1][input2 + 2] = 'o';
+              board[input1][input2 + 3] = 'o';
+            }
+            else if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'x' && board[input1][input2 + 3] == 'x' && board[input1][input2 + 4] == 'x' && board[input1][input2 + 5] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 + 1][input2] = 'o';
+              board[input1 + 2][input2] = 'o';
+              board[input1 + 3][input2] = 'o';
+              board[input1 + 4][input2] = 'o';
+            }
+            else if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'x' && board[input1][input2 + 3] == 'x' && board[input1][input2 + 4] == 'x' && board[input1][input2 + 5] == 'x' && board[input1][input2 + 6] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 + 1] = 'o';
+              board[input1][input2 + 2] = 'o';
+              board[input1][input2 + 3] = 'o';
+              board[input1][input2 + 4] = 'o';
+              board[input1][input2 + 5] = 'o';
+            }
+            else if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'x' && board[input1][input2 + 3] == 'x' && board[input1][input2 + 4] == 'x' && board[input1][input2 + 5] == 'x' && board[input1][input2 + 6] == 'x' && board[input1][input2 + 7] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 + 1] = 'o';
+              board[input1][input2 + 2] = 'o';
+              board[input1][input2 + 3] = 'o';
+              board[input1][input2 + 4] = 'o';
+              board[input1][input2 + 5] = 'o';
+              board[input1][input2 + 6] = 'o';
+            }
+            else
+            {
+              System.out.println("did not work4");
+              tryAgain++;
+            }
         }
       }
-      while (tryAgain); //while tryagain is true
-      
-    }
+      while (tryAgain == 4); //while tryagain is true
+     
+  }
   public static void player2()
   {
-       boolean tryAgain = false;
-    //for when player 1 plays (the 'o's)
+     boolean corner = false;
+    int tryAgain = 0;
+    //for when player 1 plays (the 'x's)
       do
       {
-        tryAgain = false;
+        tryAgain = 0;
         printBoard();
         input1 = In.getInt();
         input2 = In.getInt();
         if (check() == false)
         {
-          tryAgain = true;
+          System.out.println("tryagain = true");
+          tryAgain = tryAgain + 4;
         }
         else
         {
-          board[input1][input2] = 'x';
+          //For downwards change
+            if (board[input1 + 1][input2] == 'o' && board[input1 + 2][input2] == 'x')
+            {
+              board[input1][input2] = 'x';
+              board[input1 + 1][input2] = 'x';
+            }
+            else if (board[input1 + 1][input2] == 'o' && board[input1 + 2][input2] == 'o' && board[input1 + 3][input2] == 'x')
+            {
+              board[input1][input2] = 'x';
+              board[input1 + 1][input2] = 'x';
+              board[input1 + 2][input2] = 'x';
+            }
+            else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'o')
+            {
+              board[input1][input2] = 'x';
+              board[input1 + 1][input2] = 'x';
+              board[input1 + 2][input2] = 'x';
+              board[input1 + 3][input2] = 'x';
+            }
+            else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'o')
+            {
+              board[input1][input2] = 'x';
+              board[input1 + 1][input2] = 'x';
+              board[input1 + 2][input2] = 'x';
+              board[input1 + 3][input2] = 'x';
+              board[input1 + 4][input2] = 'x';
+            }
+            else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'x' && board[input1 + 6][input2] == 'o')
+            {
+              board[input1][input2] = 'x';
+              board[input1 + 1][input2] = 'x';
+              board[input1 + 2][input2] = 'x';
+              board[input1 + 3][input2] = 'x';
+              board[input1 + 4][input2] = 'x';
+              board[input1 + 5][input2] = 'x';
+            }
+            else if (board[input1 + 1][input2] == 'x' && board[input1 + 2][input2] == 'x' && board[input1 + 3][input2] == 'x' && board[input1 + 4][input2] == 'x' && board[input1 + 5][input2] == 'x' && board[input1 + 6][input2] == 'x' && board[input1 + 7][input2] == 'o')
+            {
+              board[input1][input2] = 'x';
+              board[input1 + 1][input2] = 'x';
+              board[input1 + 2][input2] = 'x';
+              board[input1 + 3][input2] = 'x';
+              board[input1 + 4][input2] = 'x';
+              board[input1 + 5][input2] = 'x';
+              board[input1 + 6][input2] = 'o';
+            }
+            else
+            {
+              System.out.println("did not work");
+              tryAgain++;
+            }
+            
+            //For upwards change
+            if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+            }
+            else if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'x' && board[input1 - 3][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+            }
+            else if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'x' && board[input1 - 3][input2] == 'x' && board[input1 - 4][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+              board[input1 - 3][input2] = 'o';
+            }
+            else if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'x' && board[input1 - 3][input2] == 'x' && board[input1 - 4][input2] == 'x' && board[input1 - 5][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+              board[input1 - 3][input2] = 'o';
+              board[input1 - 4][input2] = 'o';
+            }
+            else if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'x' && board[input1 - 3][input2] == 'x' && board[input1 - 4][input2] == 'x' && board[input1 - 5][input2] == 'x' && board[input1 - 6][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+              board[input1 - 3][input2] = 'o';
+              board[input1 - 4][input2] = 'o';
+              board[input1 - 5][input2] = 'o';
+            }
+            else if (board[input1 - 1][input2] == 'x' && board[input1 - 2][input2] == 'x' && board[input1 - 3][input2] == 'x' && board[input1 - 4][input2] == 'x' && board[input1 - 5][input2] == 'x' && board[input1 - 6][input2] == 'x' && board[input1 - 7][input2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+              board[input1 - 3][input2] = 'o';
+              board[input1 - 4][input2] = 'o';
+              board[input1 - 5][input2] = 'o';
+              board[input1 - 6][input2] = 'o';
+            }
+            else
+            {
+              System.out.println("did not work2");
+              tryAgain++;
+            }
+            
+            //for left change
+            if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 - 1] = 'o';
+            }
+            else if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'x' && board[input1][input2 - 3] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 - 1] = 'o';
+              board[input1][input2 - 2] = 'o';
+            }
+            else if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'x' && board[input1][input2 - 3] == 'x' && board[input1][input2 - 4] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 - 1] = 'o';
+              board[input1][input2 - 2] = 'o';
+              board[input1][input2 - 3] = 'o';
+            }
+            else if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'x' && board[input1][input2 - 3] == 'x' && board[input1][input2 - 4] == 'x' && board[input1][input2 - 5] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 - 1][input2] = 'o';
+              board[input1 - 2][input2] = 'o';
+              board[input1 - 3][input2] = 'o';
+              board[input1 - 4][input2] = 'o';
+            }
+            else if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'x' && board[input1][input2 - 3] == 'x' && board[input1][input2 - 4] == 'x' && board[input1][input2 - 5] == 'x' && board[input1][input2 - 6] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 - 1] = 'o';
+              board[input1][input2 - 2] = 'o';
+              board[input1][input2 - 3] = 'o';
+              board[input1][input2 - 4] = 'o';
+              board[input1][input2 - 5] = 'o';
+            }
+            else if (board[input1][input2 - 1] == 'x' && board[input1][input2 - 2] == 'x' && board[input1][input2 - 3] == 'x' && board[input1][input2 - 4] == 'x' && board[input1][input2 - 5] == 'x' && board[input1][input2 - 6] == 'x' && board[input1][input2 - 7] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 - 1] = 'o';
+              board[input1][input2 - 2] = 'o';
+              board[input1][input2 - 3] = 'o';
+              board[input1][input2 - 4] = 'o';
+              board[input1][input2 - 5] = 'o';
+              board[input1][input2 - 6] = 'o';
+            }
+            else
+            {
+              System.out.println("did not work3");
+              tryAgain++;
+            }
+            
+            //For right change
+            if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 + 1] = 'o';
+            }
+            else if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'x' && board[input1][input2 + 3] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 + 1] = 'o';
+              board[input1][input2 + 2] = 'o';
+            }
+            else if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'x' && board[input1][input2 + 3] == 'x' && board[input1][input2 + 4] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 + 1] = 'o';
+              board[input1][input2 + 2] = 'o';
+              board[input1][input2 + 3] = 'o';
+            }
+            else if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'x' && board[input1][input2 + 3] == 'x' && board[input1][input2 + 4] == 'x' && board[input1][input2 + 5] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1 + 1][input2] = 'o';
+              board[input1 + 2][input2] = 'o';
+              board[input1 + 3][input2] = 'o';
+              board[input1 + 4][input2] = 'o';
+            }
+            else if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'x' && board[input1][input2 + 3] == 'x' && board[input1][input2 + 4] == 'x' && board[input1][input2 + 5] == 'x' && board[input1][input2 + 6] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 + 1] = 'o';
+              board[input1][input2 + 2] = 'o';
+              board[input1][input2 + 3] = 'o';
+              board[input1][input2 + 4] = 'o';
+              board[input1][input2 + 5] = 'o';
+            }
+            else if (board[input1][input2 + 1] == 'x' && board[input1][input2 + 2] == 'x' && board[input1][input2 + 3] == 'x' && board[input1][input2 + 4] == 'x' && board[input1][input2 + 5] == 'x' && board[input1][input2 + 6] == 'x' && board[input1][input2 + 7] == 'o')
+            {
+              board[input1][input2] = 'o';
+              board[input1][input2 + 1] = 'o';
+              board[input1][input2 + 2] = 'o';
+              board[input1][input2 + 3] = 'o';
+              board[input1][input2 + 4] = 'o';
+              board[input1][input2 + 5] = 'o';
+              board[input1][input2 + 6] = 'o';
+            }
+            else
+            {
+              System.out.println("did not work4");
+              tryAgain++;
+            }
         }
       }
-      while (tryAgain); //while tryagain is true
+      while (tryAgain == 4); //while tryagain is true
+   
   }
   public static void printBoard()
   {
-    board[3][3] = 'x';
-    board[4][4] = 'x';
-    board[3][4] = 'o';
-    board[4][3] = 'o';
     
     System.out.print("   ");
     for (int j = 0; j < 8; j ++)
