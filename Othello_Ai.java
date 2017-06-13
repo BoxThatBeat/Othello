@@ -1,3 +1,9 @@
+/* Aaron Buitenwerf
+ * First game Assignment
+ * Othhello_SinglePlayer
+ */
+
+import java.util.Random;
 class Othello
 {
   public static boolean cpu = false; 
@@ -45,23 +51,51 @@ class Othello
     else{}
     
     System.out.println("Let's Start"); //game starts
-    System.out.println("Player 1 you are the 'o's");
-    System.out.println("Ai is the 'x's");
     
     System.out.println("type in 8 then 8 again to skip your turn");
     System.out.println("type in the row then the column in two seperate inputs"); //first Y then X axis
+    
+    Random randomGenerator = new Random(); // random number between 0 to 1
+    int rand = randomGenerator.nextInt(2);
+    if (rand == 0) //if the random number is equal to 0 say who is who
+    {
+      System.out.println("Player 1 you are the 'x's");
+      System.out.println("Ai is the 'o's");
+    }
+    else if (rand == 1)
+    {
+      System.out.println("Player 1 you are the 'o's");
+      System.out.println("Ai is the 'x's");
+    }
     do //this loop sets whos turn it is by setting turnopp to the players piece
     {
+      if (rand == 0)
+      {
       System.out.println("Player 1 it is your turn");
-      
+      turn = 'o';//these variables are used in the method "play" to show whos turn it is to the game logic
+      turnOpp = 'x';
+      }
+      else if (rand == 1)
+      {
+      System.out.println("Player 1 it is your turn");
       turn = 'x';
       turnOpp = 'o';
+      }
       play(); //this is the gamelogic for when both player1 and player2 play their turn
 
       endCondition++; //this adds 1 to the endcondition which starts at 0, when it reaches 64 the game ends
-
-      turn = 'o'; //these variables are used in the method "play" to show whos turn it is to the game logic
+      
+      if (rand == 0)
+      {
+      turn = 'x';
+      turnOpp = 'o';
+      }
+      else if (rand == 1)
+      {
+      System.out.println("Ai is the 'x's");
+      turn = 'o';
       turnOpp = 'x';
+      }
       playAi(); //calls the Ai method which will chouse the best move possible and play it
       
       endCondition++;
@@ -930,7 +964,7 @@ class Othello
       System.out.print("   ");
       for (int j = 0; j < 8; j ++)
       {
-        System.out.print(j + "  ");
+        System.out.print(j + "Â Â ");
       }
       System.out.println("");
       for(int r = 0; r < 8; r++)
@@ -1389,7 +1423,7 @@ class Othello
     System.out.print("   ");
     for (int j = 0; j < 8; j ++)
     {
-      System.out.print(j + "  ");
+      System.out.print(j + "Â Â ");
     }
     System.out.println("");
     for(int r = 0; r < 8; r++)
