@@ -1,3 +1,8 @@
+/* Aaron Buitenwerf
+ * First game Assignment
+ * Othhello
+ */
+
 class Othello
 {
   public static char turn, turnOpp;
@@ -7,7 +12,7 @@ class Othello
   public static void main (String [] args) //calls all needed methods
   {
     
-    for (int k = 0; k < 8; k++)
+    for (int k = 0; k < 8; k++) //This set of code sets the whole board to spaces
     { 
       for (int h = 0; h < 8; h++)
       {
@@ -20,62 +25,61 @@ class Othello
     board[4][3] = 'o';
     
     int player1PTs = 0, player2PTs = 0; //for counting to see who won the game
-    int innerCheck = 0;
-    int endCondition = 0;
+    int endCondition = 0; 
     String in;
     System.out.println("Do you know how to play Othello?");
     System.out.println("type n to display instructions");
-    in = In.getString();
+    in = In.getString(); //gets input of user, if they type anything other than N the game will start without instructions
     in = in.toUpperCase();
     if (in.equals ("N"))
     {
-      rules();
+      rules(); //calls the rules method which shows the rules of the game
     }
     else{}
     
-    System.out.println("Let's Start");
+    System.out.println("Let's Start"); //game starts
     System.out.println("Player 1 you are the 'o's");
     System.out.println("Player 2 you are the 'x's");
     
     System.out.println("type in 8 then 8 again to skip your turn");
-    System.out.println("type in the row then the column");
-    do
+    System.out.println("type in the row then the column in two seperate inputs"); //first Y then X axis
+    do //this loop sets whos turn it is by setting turnopp to the players piece
     {
       System.out.println("Player 1 it is your turn");
       
       turn = 'x';
       turnOpp = 'o';
-      play();
+      play(); //this is the gamelogic for when both player1 and player2 play their turn
 
-      endCondition++;
+      endCondition++; //this adds 1 to the endcondition which starts at 0, when it reaches 64 the game ends
       
       System.out.println("Player 2 it is your turn");
 
-      turn = 'o';
+      turn = 'o'; //these variables are used in the method "play" to show whos turn it is to the game logic
       turnOpp = 'x';
       play();
       
       endCondition++;
     }
-    while (endCondition != 62);
+    while (endCondition != 64); //the loop stops repeating when each player has played 32 pieces
 
     System.out.println("Game Over");
-    for (int k = 0; k < 8; k++)
+    for (int k = 0; k < 8; k++) //This loop checks the entire board
     { 
       for (int h = 0; h < 8; h++)
       {
         if (board[k][h] == 'o')
         {
-          player1PTs++;
+          player1PTs++; //this adds to the count of how many points player1 has (o's)
         }
         if (board[k][h] == 'x')
         {
-          player2PTs++;
+          player2PTs++; //this adds to the count of how many points player2 has (x's)
         }
       }
     }
     
-    if (player1PTs == player2PTs)
+    if (player1PTs == player2PTs) //this determines who wins or if there was a tie
     {
       System.out.println("It was a tie!");
     }
@@ -87,28 +91,27 @@ class Othello
     {
       System.out.println("Player2 won!");
     }
-    System.out.println("GG");
+    System.out.println("GG"); //good game
   }
   
-  public static void play()
+  public static void play() //this is the game logic and error checking
   {
-    boolean corner = false;
-    int tryAgain = 0;
-      do
+    int tryAgain = 0; //Try again is a var that goes up by one evertime there is a invalid gamelogic or if there is a big error it will go straigt to 8
+      do              //the turn will go again if the count is equal to 8 (exception 15 for specific error note)
       {
-        if (tryAgain == 8)
+        if (tryAgain == 8) 
         {
-          System.out.println("Not a valid move");
-          System.out.println("Try again");
-          System.out.println("8 , 8 to skip turn");
+          System.out.println("Not a valid move"); //an if statement that has the same conditions as the while statement at the end
+          System.out.println("Try again");        // this says a note that the player needs to try again
+          System.out.println("8 , 8 to skip turn"); //reminder that 8 then 8 is to skip turn (in case there is no possible move)
         }
-        tryAgain = 0;
-        printBoard();
-        input1 = In.getInt(); //!!!put in a check for if the input is only one integer
+        tryAgain = 0; //sets tryAgain back to 0
+        printBoard(); //prints the board even if nothing has changed
+        input1 = In.getInt(); //gets the two inputs of the player
         input2 = In.getInt();
-        if (input1 > 8 || input2 > 8)
+        if (input1 > 8 || input2 > 8) //checking for legitimacy of input
         {
-          System.out.println("Please input only 0-8");
+          System.out.println("Please input only 0-8"); //only allows 0-8 as an integer
           System.out.println("8 , 8 to skip turn");
           System.out.println("Try again");
           tryAgain = tryAgain + 15;
@@ -122,27 +125,26 @@ class Othello
         }
         else
         {
-          if (input1 == 8 && input2 == 8)
+          if (input1 == 8 && input2 == 8) //if both inputs are equal to 8
           {
             System.out.println("Skipping your turn");
-            tryAgain--;
+            tryAgain--; //this makes it impossible to restart because tryAgain will never equal 8
           }
           else
           {
-            if (check() == false)
+            if (check() == false) //goes to a method that checks if the player is trying to place a piece on another piece
             {
-              System.out.println("tryagain = true");
-              tryAgain = tryAgain + 8;
+              tryAgain = tryAgain + 8; //goes straight to 8 and skips the game logic
             }
             else
             {
-              try
+              try //this try is to eliminate the error that occurs when the game logic trys to check a edge piece but goes outside the array
               {
                 //For downwards change
-                if (board[input1 + 1][input2] == turn && board[input1 + 2][input2] == turnOpp)
+                if (board[input1 + 1][input2] == turn && board[input1 + 2][input2] == turnOpp) //if there is an opponents piece inbetween the player's piece in the downwards direction
                 {
-                  board[input1][input2] = turnOpp;
-                  board[input1 + 1][input2] = turnOpp;
+                  board[input1][input2] = turnOpp; //set a piece on the position identified by the player
+                  board[input1 + 1][input2] = turnOpp; //set the piece that is inbtween
                 }
                 else if (board[input1 + 1][input2] == turn && board[input1 + 2][input2] == turn && board[input1 + 3][input2] == turnOpp)
                 {
@@ -275,10 +277,10 @@ class Othello
                 else if (board[input1][input2 - 1] == turn && board[input1][input2 - 2] == turn && board[input1][input2 - 3] == turn && board[input1][input2 - 4] == turn && board[input1][input2 - 5] == turnOpp)
                 {
                   board[input1][input2] = turnOpp;
-                  board[input1 - 1][input2] = turnOpp;
-                  board[input1 - 2][input2] = turnOpp;
-                  board[input1 - 3][input2] = turnOpp;
-                  board[input1 - 4][input2] = turnOpp;
+                  board[input1][input2 - 1] = turnOpp;
+                  board[input1][input2 - 2] = turnOpp;
+                  board[input1][input2 - 3] = turnOpp;
+                  board[input1][input2 - 4] = turnOpp;
                 }
                 else if (board[input1][input2 - 1] == turn && board[input1][input2 - 2] == turn && board[input1][input2 - 3] == turn && board[input1][input2 - 4] == turn && board[input1][input2 - 5] == turn && board[input1][input2 - 6] == turnOpp)
                 {
@@ -602,11 +604,11 @@ class Othello
           }
         }
       }
-      while (tryAgain == 8 || tryAgain == 15); //while tryagain is true
+      while (tryAgain == 8 || tryAgain == 15); //while tryagain is equal to 8 or 15
      
   }
  
-  public static void printBoard()
+  public static void printBoard() //This method prints the board
   {
     
     System.out.print("   ");
@@ -620,20 +622,20 @@ class Othello
       System.out.print(r + " ");
       for (int c = 0; c < 8; c++)
       {
-        System.out.print("[" + board[r][c] + "]");
+        System.out.print("[" + board[r][c] + "]"); //Prints the board array which is universal and that has been updated by the gamelogic
       }
       System.out.println("");
     }
   }
   
-public static void rules()
+public static void rules() //The medthod that explains the rules of othello
   {
     System.out.println("---------Welcome to OTHELLO---------");
     System.out.println("How to play:");
     System.out.println("The objective of the game is to have the majority of your pieces(either 'x' or 'o') on the 8x8 board at the end of the game");
     System.out.println("Each turn you can place one piece, place your piece on an empty square so that one (or more) of the opponent's pieces are between yours.");
     System.out.println("All of the opponents pieces between the piece you placed and another of your piece will turn into yours");
-    System.out.println("This is an example of a move:");
+    System.out.println("This is an example of a move:"); //an example for better understanding
     System.out.println("   0  1  2  3  4  5  6  7 ") ; 
     System.out.println("0 [ ][ ][ ][ ][ ][ ][ ][ ] ");
     System.out.println("1 [ ][ ][ ][o][ ][ ][o][ ] ");
@@ -656,7 +658,7 @@ public static void rules()
   }
  public static boolean check()
   {
-    //checks the input for invalid entries
+    //checks if the piece is being placed in a empty slot
     boolean check = false;
     if (board[input1][input2] == ' ')
     {
@@ -666,14 +668,9 @@ public static void rules()
     {
        check = false;
       System.out.println("You cannot play on other pieces.");
-      System.out.println("Try again:");
     }
     
     return check;
   }
 
-
-
-
-  
 }
