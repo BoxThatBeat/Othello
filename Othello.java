@@ -57,7 +57,7 @@ class Othello
       
       endCondition++;
     }
-    while (endCondition != 64);
+    while (endCondition != 62);
 
     System.out.println("Game Over");
     for (int k = 0; k < 8; k++)
