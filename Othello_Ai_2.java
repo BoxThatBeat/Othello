@@ -38,7 +38,6 @@ class Othello_Ai_2
     {
       cpu = true;
     }
-    else {}
     
     System.out.println("Do you know how to play Othello?");
     System.out.println("type n to display instructions");
@@ -48,7 +47,7 @@ class Othello_Ai_2
     {
       rules(); //calls the rules method which shows the rules of the game
     }
-    else{}
+
     
     System.out.println("Let's Start"); //game starts
     System.out.println("Player 1 you are the 'o's");
@@ -622,6 +621,14 @@ class Othello_Ai_2
  
   public static void playAi() //This Ai goes though each possible move/location on the board and sees which one will have the best outcome in terms of enemey pieces fliped
   {
+    for (int k = 0; k < 8; k++)
+    {
+      for (int h = 0; h < 8; h++)
+      {
+        place[k][h] = 0;
+      }
+    }
+    
     int biggest , bigY , bigX;
     int yAxis , xAxis;
     
@@ -634,25 +641,34 @@ class Othello_Ai_2
 } catch(InterruptedException ex) {
     Thread.currentThread().interrupt();
 }
-    
+
+
+
     for (int k = 0; k < 8; k++)
     {
       for (int h = 0; h < 8; h++)
       {
-        if (board[k][h] == ' ') //so that the bot does not check spots where a piece already exists
+        yAxis = k; //sets the two numbers that are used to test the move
+        xAxis = h;
+
+
+        
+        
+        if (board[yAxis][xAxis] == ' ') //so that the bot does not check spots where a piece already exists
         {
-          yAxis = k; //sets the two numbers that are used to test the move
-          xAxis = h;
-          
-       
-          try //this try is to eliminate the error that occurs when the game logic trys to check a edge piece but goes outside the array
+          if (board[yAxis][xAxis] != 'x') //so that the bot does not check spots where a piece already exists
+          {
+            if (board[yAxis][xAxis] != 'o') //so that the bot does not check spots where a piece already exists
+            {
+
+              try //this try is to eliminate the error that occurs when the game logic trys to check a edge piece but goes outside the array
               {
                 //For downwards change
                 if (board[yAxis + 1][xAxis] == turn && board[yAxis + 2][xAxis] == turnOpp) //if there is an opponents piece inbetween the player's piece in the downwards direction
                 {
                   edgeCheck(yAxis, xAxis);
                   cornerCheck(yAxis, xAxis);
-                  place[yAxis][xAxis] ++; //if there can be a flip of a piece in this direction add 1 to the score of this position on the int array board
+                  place[yAxis][xAxis] = place[yAxis][xAxis] + 1; //if there can be a flip of a piece in this direction add 1 to the score of this position on the int array board
                 }
                 else if (board[yAxis + 1][xAxis] == turn && board[yAxis + 2][xAxis] == turn && board[yAxis + 3][xAxis] == turnOpp)
                 {
@@ -696,7 +712,7 @@ class Othello_Ai_2
                 {
                   edgeCheck(yAxis, xAxis);
                   cornerCheck(yAxis, xAxis);
-                  place[yAxis][xAxis] ++;
+                  place[yAxis][xAxis] = place[yAxis][xAxis] + 1;
                 }
                 else if (board[yAxis - 1][xAxis] == turn && board[yAxis - 2][xAxis] == turn && board[yAxis - 3][xAxis] == turnOpp)
                 {
@@ -739,7 +755,7 @@ class Othello_Ai_2
                 {
                   edgeCheck(yAxis, xAxis);
                   cornerCheck(yAxis, xAxis);
-                  place[yAxis][xAxis] ++;
+                  place[yAxis][xAxis] = place[yAxis][xAxis] + 1;
                 }
                 else if (board[yAxis][xAxis - 1] == turn && board[yAxis][xAxis - 2] == turn && board[yAxis][xAxis - 3] == turnOpp)
                 {
@@ -781,12 +797,14 @@ class Othello_Ai_2
                 //For right change
                 if (board[yAxis][xAxis + 1] == turn && board[yAxis][xAxis + 2] == turnOpp)
                 {
-                  edgeCheck(yAxis, xAxis);
-                  cornerCheck(yAxis, xAxis);
-                  place[yAxis][xAxis] ++;
+                  System.out.println("!");
+                  //edgeCheck(yAxis, xAxis);
+                  //cornerCheck(yAxis, xAxis);
+                  place[yAxis][xAxis] = place[yAxis][xAxis] + 1;
                 }
                 else if (board[yAxis][xAxis + 1] == turn && board[yAxis][xAxis + 2] == turn && board[yAxis][xAxis + 3] == turnOpp)
                 {
+                  System.out.println("!!!");
                   edgeCheck(yAxis, xAxis);
                   cornerCheck(yAxis, xAxis);
                   place[yAxis][xAxis] = place[yAxis][xAxis] + 2;
@@ -827,7 +845,7 @@ class Othello_Ai_2
                 {
                   edgeCheck(yAxis, xAxis);
                   cornerCheck(yAxis, xAxis);
-                  place[yAxis][xAxis] ++;
+                  place[yAxis][xAxis] = place[yAxis][xAxis] + 1;
                 }
                 else if (board[yAxis - 1][xAxis + 1] == turn && board[yAxis - 2][xAxis + 2] == turn && board[yAxis - 3][xAxis + 3] == turnOpp)
                 {
@@ -871,7 +889,7 @@ class Othello_Ai_2
                 {
                   edgeCheck(yAxis, xAxis);
                   cornerCheck(yAxis, xAxis);
-                  place[yAxis][xAxis] ++;
+                  place[yAxis][xAxis] = place[yAxis][xAxis] + 1;
                 }
                 else if (board[yAxis + 1][xAxis + 1] == turn && board[yAxis + 2][xAxis + 2] == turn && board[yAxis + 3][xAxis + 3] == turnOpp)
                 {
@@ -915,7 +933,7 @@ class Othello_Ai_2
                 {
                   edgeCheck(yAxis, xAxis);
                   cornerCheck(yAxis, xAxis);
-                  place[yAxis][xAxis] ++;
+                  place[yAxis][xAxis] = place[yAxis][xAxis] + 1;
                 }
                 else if (board[yAxis - 1][xAxis - 1] == turn && board[yAxis - 2][xAxis - 2] == turn && board[yAxis - 3][xAxis - 3] == turnOpp)
                 {
@@ -959,7 +977,7 @@ class Othello_Ai_2
                 {
                   edgeCheck(yAxis, xAxis);
                   cornerCheck(yAxis, xAxis);
-                  place[yAxis][xAxis] ++;
+                  place[yAxis][xAxis] = place[yAxis][xAxis] + 1;
                 }
                 else if (board[yAxis + 1][xAxis - 1] == turn && board[yAxis + 2][xAxis - 2] == turn && board[yAxis + 3][xAxis - 3] == turnOpp)
                 {
@@ -995,7 +1013,9 @@ class Othello_Ai_2
               catch (Exception e)
               {
               }
-          
+              
+            }
+          }
         }
         
       }
@@ -1028,7 +1048,7 @@ class Othello_Ai_2
       System.out.print("   ");
       for (int j = 0; j < 8; j ++)
       {
-        System.out.print(j + "  ");
+        System.out.print(j + "Â Â ");
       }
       System.out.println("");
       for(int r = 0; r < 8; r++)
@@ -1487,7 +1507,7 @@ class Othello_Ai_2
     System.out.print("   ");
     for (int j = 0; j < 8; j ++)
     {
-      System.out.print(j + "  ");
+      System.out.print(j + "Â Â ");
     }
     System.out.println("");
     for(int r = 0; r < 8; r++)
