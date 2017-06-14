@@ -4,9 +4,8 @@
  */
 
 import java.util.Random;
-class Othello
+class Othello_Ai
 {
-  public static boolean cpu = false; 
   public static char turn, turnOpp;
   public static int input1, input2;
   public static char[][] board = new char[8][8];
@@ -29,6 +28,7 @@ class Othello
     int player1PTs = 0, player2PTs = 0; //for counting to see who won the game
     int endCondition = 0; 
     String in;
+    int cpu = 0;
     
     System.out.println("Do you want to see how the cpu scores its moves?");
     System.out.println("if yes type y");
@@ -36,7 +36,7 @@ class Othello
     in = in.toUpperCase();
     if (in.equals ("Y")) //activates the cpu mode
     {
-      cpu = true;
+      cpu = 1;
     }
     else {}
     
@@ -69,6 +69,8 @@ class Othello
     }
     do //this loop sets whos turn it is by setting turnopp to the players piece
     {
+      endCondition = 0;
+      
       if (rand == 0)
       {
       System.out.println("Player 1 it is your turn");
@@ -82,8 +84,6 @@ class Othello
       turnOpp = 'o';
       }
       play(); //this is the gamelogic for when both player1 and player2 play their turn
-
-      endCondition++; //this adds 1 to the endcondition which starts at 0, when it reaches 64 the game ends
       
       if (rand == 0)
       {
@@ -96,9 +96,19 @@ class Othello
       turn = 'o';
       turnOpp = 'x';
       }
-      playAi(); //calls the Ai method which will chouse the best move possible and play it
+      playAi(cpu); //calls the Ai method which will chouse the best move possible and play it
       
-      endCondition++;
+      for (int k = 0; k < 8; k++) //This loop checks the entire board
+      {
+        for (int h = 0; h < 8; h++)
+        {
+          if (board[k][h] != ' ')
+          {
+           endCondition ++; 
+          }
+        }
+      }
+      System.out.println("Pieces on the board: " + endCondition);
     }
     while (endCondition != 64); //the loop stops repeating when each player has played 32 pieces
 
@@ -648,7 +658,7 @@ class Othello
      
   }
  
-  public static void playAi() //This Ai goes though each possible move/location on the board and sees which one will have the best outcome in terms of enemey pieces fliped
+  public static void playAi(int cpu) //This Ai goes though each possible move/location on the board and sees which one will have the best outcome in terms of enemey pieces fliped
   {
     int biggest , bigY , bigX;
     int [][] place = new int [8][8];
@@ -959,7 +969,7 @@ class Othello
       bigX = 8; //this will later trigger a skip turn if statement
     }
     
-    if (cpu = true) //if user said yes to the cpu mode on
+    if (cpu == 1) //if user said yes to the cpu mode on
     {
       System.out.print("   ");
       for (int j = 0; j < 8; j ++)
