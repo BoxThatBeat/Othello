@@ -45,13 +45,13 @@ class Othello
     System.out.println("type in the row then the column in two seperate inputs"); //first Y then X axis
     do //this loop sets whos turn it is by setting turnopp to the players piece
     {
+      endCondition = 0; 
       System.out.println("Player 1 it is your turn");
       
       turn = 'x';
       turnOpp = 'o';
       play(); //this is the gamelogic for when both player1 and player2 play their turn
 
-      endCondition++; //this adds 1 to the endcondition which starts at 0, when it reaches 64 the game ends
       
       System.out.println("Player 2 it is your turn");
 
@@ -59,7 +59,17 @@ class Othello
       turnOpp = 'x';
       play();
       
-      endCondition++;
+       for (int k = 0; k < 8; k++) //This loop checks the entire board
+      {
+        for (int h = 0; h < 8; h++)
+        {
+          if (board[k][h] != ' ')
+          {
+           endCondition ++; 
+          }
+        }
+      }
+      System.out.println("Pieces on the board: " + endCondition);
     }
     while (endCondition != 64); //the loop stops repeating when each player has played 32 pieces
 
